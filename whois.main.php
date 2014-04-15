@@ -307,7 +307,14 @@ class Whois extends WhoisClient{
     $today = new DateTime();
     $daysToExpire = $result['regrinfo']['domain']['expires']->diff($today);
     $daysToExpire = $daysToExpire->days;
-    $result['regrinfo']['domain']['days_to_expire'] = $daysToExpire;    
+    $result['regrinfo']['domain']['days_to_expire'] = $daysToExpire;
+
+    $todayTimestamp = $today->getTimestamp();
+    $expireTimestamp = $result['regrinfo']['domain']['expire']->getTimestamp();
+    
+    $percentToExpire = ($todayTimestamp/$expireTimestamp)*100;
+    $result['regrinfo']['domain']['percent_expire'] = $percentToExpire;
+    
     $result = Array(
         "domain" => $result['regrinfo']['domain'],
         "owner" => $result['regrinfo']['owner']
