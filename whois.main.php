@@ -301,9 +301,9 @@ class Whois extends WhoisClient{
     }
     
     $today = new DateTime();
-    $result['days_to_expire'] = $result['regrinfo']['domain']['expires']->diff($today);
-    $result['days_to_expire'] = $result['days_to_expire']->days;
-    
+    $daysToExpire = $result['regrinfo']['domain']['expires']->diff($today);
+    $daysToExpire = $daysToExpire->days;
+    $result['regrinfo']['domain']['days_to_expire'] = $daysToExpire;    
     $result = Array(
         "domain" => $result['regrinfo']['domain'],
         "owner" => $result['regrinfo']['owner']
