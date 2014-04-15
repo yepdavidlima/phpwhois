@@ -322,6 +322,41 @@ class Whois extends WhoisClient
 				$result['regrinfo']['domain']['nserver'] = $this->FixNameServer($result['regrinfo']['domain']['nserver']);
 			}
 		}
+		
+
+        /*
+         * Implemented by David Lima at Agência YEP!
+         * 15/04/2014
+         * Returns only global and generally used information
+         */
+		function SummaryInfo($domain){
+		  $this->deep_whois = true;
+		  $result = $this->Lookup($domain);
+		   
+		  if(isset($result['regrinfo']['domain']['created'])){
+		    $result['regrinfo']['domain']['created'] = new DateTime($result['regrinfo']['domain']['created']);
+		  }else{
+		    $result['regrinfo']['domain']['created'] = new DateTime("0000-00-00");
+		  }
+		   
+		  if(isset($result['regrinfo']['domain']['expires'])){
+		    $result['regrinfo']['domain']['expires'] = new DateTime($result['regrinfo']['domain']['expires']);
+		  }else{
+		    $result['regrinfo']['domain']['expires'] = new DateTime("0000-00-00");
+		  }
+		
+		  if(isset($result['regrinfo']['domain']['changed'])){
+		    $result['regrinfo']['domain']['changed'] = new DateTime($result['regrinfo']['domain']['changed']);
+		  }else{
+		    $result['regrinfo']['domain']['changed'] = new DateTime("0000-00-00");
+		  }
+		   
+		  $result = Array(
+		      "domain" => $result['regrinfo']['domain'],
+		      "owner" => $result['regrinfo']['owner']
+		  );
+		  return $result;
+		}
 	}
 
 ?>
