@@ -30,7 +30,7 @@ require_once("whois.utils.php");
 
 $whois = new Whois();
 
-$resultado = $whois->SummaryInfo("blogdodave.com.br");
+$resultado = $whois->SummaryInfo("animespirit.net");
 echo"<pre>";
 print_r($resultado);
 ?>

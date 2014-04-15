@@ -300,6 +300,10 @@ class Whois extends WhoisClient{
       $result['regrinfo']['domain']['changed'] = new DateTime("0000-00-00");
     }
     
+    if(!isset($result['regrinfo']['owner'])){
+      $result['regrinfo']['owner'] = null; 
+    }
+    
     $today = new DateTime();
     $daysToExpire = $result['regrinfo']['domain']['expires']->diff($today);
     $daysToExpire = $daysToExpire->days;
